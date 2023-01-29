@@ -16,16 +16,34 @@ public class ApiCallStockPriceRead {
 	@Autowired
 	WebClient webClient;
 	
+	/*
+	 * @HystrixCommand(fallbackMethod = "getFallbackgetStockLtp", commandProperties
+	 * = {
+	 * 
+	 * @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value =
+	 * "5"),
+	 * 
+	 * @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value =
+	 * "500"),
+	 * 
+	 * @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value =
+	 * "1"),
+	 * 
+	 * @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value =
+	 * "1000") } )
+	 */
+
 	
 	@HystrixCommand(fallbackMethod = "getFallbackgetStockLtp",
-			commandProperties = {
-			@HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"),
-			@HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "500"),
-			@HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"),
-			@HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "100000")
-			}
+				threadPoolKey = "stockPriceRead",
+				threadPoolProperties = {
+						@HystrixProperty(name = "coreSize",value = "20"),
+						@HystrixProperty(name = "maxQueueSize",value = "10")
+						
+				}
 			)
-
+	
+			
 	public Stock getStockLtp(String stckName) {
 		
 		Mono<Stock> mono=	 webClient.get().uri("http://stock-price-service/stockprice/"+ stckName)
