@@ -2,8 +2,6 @@ package my.training.stockpricereaderservice.hibernate;
 
 import java.util.Date;
 
-import javax.persistence.Basic;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -18,11 +16,11 @@ public class HibernateTest {
 	public static void main(String[] args) {
 		
 		Userdetails userdetails=new Userdetails();
-		userdetails.setUserid("3");
+		userdetails.setUserid("1");
 		
-		userdetails.setUserName("second user");
-		userdetails.setAdddress("secind  addtress ");
-		userdetails.setDescription("secdnd user descriptn");
+		userdetails.setUserName("first user");
+		userdetails.setAdddress("first  addtress ");
+		userdetails.setDescription("first user descriptn");
 		userdetails.setJoinedDate(new Date());
 		
 		
@@ -32,6 +30,15 @@ public class HibernateTest {
 		session.beginTransaction();
 		session.save(userdetails);
 		session.getTransaction().commit();
+		session.close();
+		
+		//Read data from db
+		userdetails=null;
+		session= sessionFactory.openSession();
+		session.beginTransaction();
+		userdetails =session.get(Userdetails.class, "1");
+		
+		System.out.println("USER_DET"+userdetails.getUserName());
 		
 
 	}

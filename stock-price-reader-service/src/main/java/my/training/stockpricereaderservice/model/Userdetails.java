@@ -2,7 +2,6 @@ package my.training.stockpricereaderservice.model;
 
 import java.util.Date;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,7 +9,6 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 
 @Entity
@@ -20,7 +18,7 @@ public class Userdetails {
 	@Id
 	@Column(name = "USER_ID")
 	private String userid;
-	@Transient
+	
 	@Column(name = "USER_NAME")
 	private String userName;
 	
