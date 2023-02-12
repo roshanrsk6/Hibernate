@@ -13,6 +13,7 @@
         <property name="hbm2ddl.auto">create</property>
         <property name="show_sql">true</property>
        <mapping class="my.training.stockpricereaderservice.model.Userdetails"/>
+       <mapping class="my.training.stockpricereaderservice.model.Address"/>
 
     </session-factory>
 </hibernate-configuration>

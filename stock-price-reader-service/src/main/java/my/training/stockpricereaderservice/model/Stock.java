@@ -1,7 +1,8 @@
 package my.training.stockpricereaderservice.model;
 
+import java.io.Serializable;
 
-public class Stock {
+public class Stock implements Serializable{
 
 	
 	private String stockName;
