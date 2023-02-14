@@ -1,14 +1,11 @@
 package my.training.stockpricereaderservice.hibernate;
 
-import java.util.Date;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import my.training.stockpricereaderservice.model.Address;
-import my.training.stockpricereaderservice.model.Stock;
 import my.training.stockpricereaderservice.model.Userdetails;
+import my.training.stockpricereaderservice.model.Vehicle;
 
 public class HibernateTest {
 
@@ -20,52 +17,43 @@ public class HibernateTest {
 		Userdetails userdetails=new Userdetails();
 		
 		userdetails.setUserName("first user");
-		userdetails.setDescription("first user descriptn");
-		userdetails.setJoinedDate(new Date());
-		Address address=new Address();
-		address.setCity("first city");
-		address.setPincode("first pin");
-		address.setState("first state");
-		address.setStreet("first street");
-		//userdetails.setHomeAddress(address);
-		userdetails.getListOfAddress().add(address);
-		Address address12=new Address();
-		address12.setCity("first city");
-		address12.setPincode("first pin");
-		address12.setState("first state");
-		address12.setStreet("first street");
-		userdetails.getListOfAddress().add(address12);
 		
+	
+		Vehicle vehicle=new Vehicle();
+		vehicle.setVehicleName("first user car");
+		vehicle.getUserlist().add(userdetails);
+		
+		userdetails.getVehcleList().add(vehicle);		
 		
 		Userdetails userdetails2=new Userdetails();
+		userdetails2.setUserName("secnd user");
 		
-		userdetails2.setUserName("scond user");
-		userdetails2.setDescription("scond user descriptn");
-		userdetails2.setJoinedDate(new Date());
-		Address address2=new Address();
-		address2.setCity("socnd city");
-		address2.setPincode("socnd pin");
-		address2.setState("socnd state");
-		address2.setStreet("socnd street");
-		//userdetails2.setHomeAddress(address2);
+		Vehicle vehicle2=new Vehicle();
+		vehicle2.setVehicleName("first user send car");
+		vehicle2.getUserlist().add(userdetails2);
+		vehicle2.getUserlist().add(userdetails);
+		userdetails2.getVehcleList().add(vehicle2);
+		userdetails2.getVehcleList().add(vehicle);
+		userdetails.getVehcleList().add(vehicle2);
+		vehicle.getUserlist().add(userdetails2);
 		
 		SessionFactory sessionFactory= new Configuration().configure().buildSessionFactory();
 		Session session= sessionFactory.openSession();
 		session.beginTransaction();
 		
-		
+	
 		session.save(userdetails);
-		//session.save(userdetails2);
+		session.save(vehicle);
+		session.save(vehicle2);
+		session.save(userdetails2);
+		
 		session.getTransaction().commit();
 		session.close();
+	
+		Session getSession= sessionFactory.openSession();
+		getSession.beginTransaction();
+		Userdetails Userdetails2=  getSession.get(Userdetails.class, 1);
 		
-		//Read data from db
-		userdetails=null;
-		session= sessionFactory.openSession();
-		session.beginTransaction();
-		userdetails =session.get(Userdetails.class, 1);
-		session.close();
-		userdetails.getListOfAddress();
 		
 		System.out.println("USER_DET"+userdetails.getUserName());
 		

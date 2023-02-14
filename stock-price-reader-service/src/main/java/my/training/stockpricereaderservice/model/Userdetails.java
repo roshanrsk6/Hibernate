@@ -19,6 +19,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,90 +30,57 @@ import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
-
 @Entity
 @Table(name = "USER_DETAILS")
 public class Userdetails {
 	@Id
-	//@EmbeddedId
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "USER_ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int userid;
-	
+
 	@Column(name = "USER_NAME")
 	private String userName;
-	
-	@Temporal(TemporalType.DATE)
-	private Date joinedDate;
-	
-	@Embedded
-	@AttributeOverrides({
-		@AttributeOverride(name = "street",column = @Column(name="HOME_STREET")),
-		@AttributeOverride(name = "city",column = @Column(name="HOME_CITY")),
-		@AttributeOverride(name = "state",column = @Column(name="HOME_STATE")),
-		@AttributeOverride(name = "pincode",column = @Column(name="HOME_PINCODE"))
-		
-	})
-	private Address homeAddress;
 
+//	@OneToOne
+	// @JoinColumn(name ="VEHICLE_ID" )
+	// private Vehicle vehicle;
 
-	@ElementCollection(fetch = FetchType.LAZY)
-	@JoinTable(name = "USER_ADDRESS",joinColumns = @JoinColumn(name="USERID"))
-	 @GenericGenerator(name="increment", strategy = "increment")
-	@CollectionId(columns = { @Column(name = "ADDRESS_ID") }, generator = "increment", type = @Type(type = "long"))
-	private Collection<Address> listOfAddress=new ArrayList<>();
-	
-	
-	@Lob
-	private String description;
-	
-	
-	
-	
-	public Collection<Address> getListOfAddress() {
-		return listOfAddress;
-	}
-	public void setListOfAddress(Collection<Address> listOfAddress) {
-		this.listOfAddress = listOfAddress;
-	}
-	public Date getJoinedDate() {
-		return joinedDate;
-	}
-	public void setJoinedDate(Date joinedDate) {
-		this.joinedDate = joinedDate;
-	}
-	
-	
-	
-	public Address getHomeAddress() {
-		return homeAddress;
-	}
-	public void setHomeAddress(Address homeAddress) {
-		this.homeAddress = homeAddress;
-	}
-	
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
+	/*
+	 * @OneToMany
+	 * 
+	 * @JoinTable(name = "USER_VEHICLE", joinColumns = @JoinColumn(name =
+	 * "USERrr_ID"), inverseJoinColumns = @JoinColumn(name = "VEHICLEee_ID"))
+	 * private Collection<Vehicle> vehcleList = new ArrayList();
+	 */
 
-	
+	/*
+	 * @OneToMany(mappedBy = "userdetails") private Collection<Vehicle> vehcleList =
+	 * new ArrayList();
+	 */
+	@ManyToMany
+	private Collection<Vehicle> vehcleList = new ArrayList();
+
 	public int getUserid() {
 		return userid;
 	}
+
 	public void setUserid(int userid) {
 		this.userid = userid;
 	}
+
 	public String getUserName() {
 		return userName;
 	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
-	
+
+	public Collection<Vehicle> getVehcleList() {
+		return vehcleList;
+	}
+
+	public void setVehcleList(Collection<Vehicle> vehcleList) {
+		this.vehcleList = vehcleList;
+	}
 
 }
