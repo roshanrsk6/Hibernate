@@ -2,33 +2,15 @@ package my.training.stockpricereaderservice.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.CollectionId;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "USER_DETAILS")
@@ -56,7 +38,7 @@ public class Userdetails {
 	 * @OneToMany(mappedBy = "userdetails") private Collection<Vehicle> vehcleList =
 	 * new ArrayList();
 	 */
-	@ManyToMany
+	@ManyToMany(mappedBy = "userdetails",cascade = CascadeType.PERSIST)
 	private Collection<Vehicle> vehcleList = new ArrayList();
 
 	public int getUserid() {

@@ -1,13 +1,14 @@
 package my.training.stockpricereaderservice.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 public class Vehicle {
@@ -27,31 +28,47 @@ public class Vehicle {
 	 * private Userdetails userdetails;
 	 */
 	
-	@ManyToMany(mappedBy = "vehcleList")
-	private Collection<Userdetails> userlist = new ArrayList();
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private Userdetails userdetails;
 
 	public int getVehicleId() {
 		return vehicleId;
 	}
 
 	
-	public Collection<Userdetails> getUserlist() {
-		return userlist;
+	
+
+
+	public Userdetails getUserdetails() {
+		return userdetails;
 	}
 
 
-	public void setUserlist(Collection<Userdetails> userlist) {
-		this.userlist = userlist;
+
+
+
+	public String getVehicleName() {
+		return vehicleName;
 	}
+
+
+
 
 
 	public void setVehicleId(int vehicleId) {
 		this.vehicleId = vehicleId;
 	}
 
-	public String getVehicleName() {
-		return vehicleName;
+
+
+
+
+	public void setUserdetails(Userdetails userdetails) {
+		this.userdetails = userdetails;
 	}
+
 
 	public void setVehicleName(String vehicleName) {
 		this.vehicleName = vehicleName;
