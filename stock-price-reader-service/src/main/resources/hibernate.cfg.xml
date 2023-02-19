@@ -12,8 +12,10 @@
         <property name="connection_pool_size">1</property>
         <property name="hbm2ddl.auto">create</property>
         <property name="show_sql">true</property>
-       <mapping class="my.training.stockpricereaderservice.model.Userdetails"/>
+       	<mapping class="my.training.stockpricereaderservice.model.Userdetails"/>
         <mapping class="my.training.stockpricereaderservice.model.Vehicle"/>
+        <mapping class="my.training.stockpricereaderservice.model.FourWheeler"/>
+        <mapping class="my.training.stockpricereaderservice.model.TwoWheeler"/>
       
 
     </session-factory>

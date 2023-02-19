@@ -3,6 +3,7 @@ package my.training.stockpricereaderservice.model;
 import javax.persistence.Entity;
 
 @Entity
+//@DiscriminatorValue(value = "4Wheeler")
 public class FourWheeler  extends Vehicle{
 
 	private String steeringwheel;

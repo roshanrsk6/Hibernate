@@ -1,10 +1,6 @@
 package my.training.stockpricereaderservice.hibernate;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.Iterator;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,17 +19,7 @@ public class HibernateTest {
 	public static void main(String[] args) {
 		
 		
-	
-		Vehicle vehicle=new Vehicle();
-		vehicle.setVehicleName("first user car");
 		
-		TwoWheeler twoWheeler=new TwoWheeler();
-		twoWheeler.setSteeringHandle("twowheelrr handle");
-		twoWheeler.setVehicleName("herohonda");
-		
-		FourWheeler fourWheeler=new FourWheeler();
-		fourWheeler.setSteeringwheel("steerinf wheel");
-		fourWheeler.setVehicleName("porshce");
 		
 		
 		
@@ -41,11 +27,27 @@ public class HibernateTest {
 		Session session= sessionFactory.openSession();
 		session.beginTransaction();
 		
-	
 		
-		session.save(vehicle);
-		session.save(twoWheeler);
-		session.save(fourWheeler);
+		//create multiple user
+		
+		for (int i = 0; i < 5; i++) {
+		
+			Userdetails userdetails=new Userdetails();
+			userdetails.setUserName("User:"+i);
+			session.save(userdetails);
+		}
+	/// get users
+		
+		Userdetails userdetails= session.get(Userdetails.class, 1);
+		System.out.println("fetched user"+userdetails.getUserName());
+		//
+		//delete user
+		session.delete(userdetails);
+		//update
+		Userdetails userdetails2= session.get(Userdetails.class, 2);
+		userdetails2.setUserName("updated user");
+		session.update(userdetails2);
+		System.out.println("updated user"+userdetails2.getUserName());
 		
 		session.getTransaction().commit();
 		session.close();

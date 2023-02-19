@@ -22,23 +22,8 @@ public class Userdetails {
 	@Column(name = "USER_NAME")
 	private String userName;
 
-//	@OneToOne
-	// @JoinColumn(name ="VEHICLE_ID" )
-	// private Vehicle vehicle;
-
-	/*
-	 * @OneToMany
-	 * 
-	 * @JoinTable(name = "USER_VEHICLE", joinColumns = @JoinColumn(name =
-	 * "USERrr_ID"), inverseJoinColumns = @JoinColumn(name = "VEHICLEee_ID"))
-	 * private Collection<Vehicle> vehcleList = new ArrayList();
-	 */
-
-	/*
-	 * @OneToMany(mappedBy = "userdetails") private Collection<Vehicle> vehcleList =
-	 * new ArrayList();
-	 */
-	@ManyToMany(mappedBy = "userdetails",cascade = CascadeType.PERSIST)
+	
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	private Collection<Vehicle> vehcleList = new ArrayList();
 
 	public int getUserid() {
