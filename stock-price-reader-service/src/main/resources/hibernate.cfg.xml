@@ -10,7 +10,7 @@
         <property name="hibernate.connection.password">roshan</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/hibernatedb</property>
         <property name="connection_pool_size">1</property>
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
         <property name="show_sql">true</property>
        	<mapping class="my.training.stockpricereaderservice.model.Userdetails"/>
         <mapping class="my.training.stockpricereaderservice.model.Vehicle"/>

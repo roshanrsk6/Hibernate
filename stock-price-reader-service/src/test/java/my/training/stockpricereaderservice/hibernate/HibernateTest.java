@@ -27,28 +27,16 @@ public class HibernateTest {
 		Session session= sessionFactory.openSession();
 		session.beginTransaction();
 		
+		Userdetails userdetails= session.get((Userdetails.class), 3);
+		session.close();
 		
-		//create multiple user
 		
-		for (int i = 0; i < 5; i++) {
+		userdetails.setUserName("update afetr sesson clsse");
 		
-			Userdetails userdetails=new Userdetails();
-			userdetails.setUserName("User:"+i);
-			session.save(userdetails);
-		}
-	/// get users
+		session= sessionFactory.openSession();
+		session.beginTransaction();
 		
-		Userdetails userdetails= session.get(Userdetails.class, 1);
-		System.out.println("fetched user"+userdetails.getUserName());
-		//
-		//delete user
-		session.delete(userdetails);
-		//update
-		Userdetails userdetails2= session.get(Userdetails.class, 2);
-		userdetails2.setUserName("updated user");
-		session.update(userdetails2);
-		System.out.println("updated user"+userdetails2.getUserName());
-		
+		session.update(userdetails);
 		session.getTransaction().commit();
 		session.close();
 		

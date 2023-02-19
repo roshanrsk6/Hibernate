@@ -12,8 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.SelectBeforeUpdate;
+
 @Entity
 @Table(name = "USER_DETAILS")
+@SelectBeforeUpdate(value = true)
 public class Userdetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
