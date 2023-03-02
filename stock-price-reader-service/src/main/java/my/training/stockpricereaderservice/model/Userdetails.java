@@ -10,11 +10,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.SelectBeforeUpdate;
 
 @Entity
+@NamedQuery(name = "Userdetails.byId",query = "from Userdetails where userid=:userid")
+@NamedNativeQuery(name ="Userdetails.byname" ,query = "select * form user_details where user_name=?",resultClass = Userdetails.class)
 @Table(name = "USER_DETAILS")
 @SelectBeforeUpdate(value = true)
 public class Userdetails {
