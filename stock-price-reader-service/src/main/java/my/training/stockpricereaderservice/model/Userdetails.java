@@ -3,6 +3,7 @@ package my.training.stockpricereaderservice.model;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.SelectBeforeUpdate;
 
 @Entity
@@ -21,6 +24,8 @@ import org.hibernate.annotations.SelectBeforeUpdate;
 @NamedNativeQuery(name ="Userdetails.byname" ,query = "select * form user_details where user_name=?",resultClass = Userdetails.class)
 @Table(name = "USER_DETAILS")
 @SelectBeforeUpdate(value = true)
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Userdetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
