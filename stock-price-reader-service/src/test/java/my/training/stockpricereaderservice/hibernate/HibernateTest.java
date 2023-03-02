@@ -56,7 +56,7 @@ public class HibernateTest {
 		query.setFirstResult(0);
 		query.setMaxResults(10);
 		List<String> users= query.list();
-		query.
+		
 		
 		session.getTransaction().commit();
 		session.close();
